@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hyper news</title>
+</head>
+<body>
+    <h2>Hyper news</h2>
+
+    <form action="/news/" method="get">
+        <p>Search the news:</p>
+        <input type="text" name="q">
+        <button type="submit">Search</button>
+    </form>
+
+    {% regroup news|dictsortreversed:"created" by created|slice:":-9" as news_list %}
+    {% for day in news_list %}
+
+        <h4>{{ day.grouper }}</h4>
+        <ul>
+            {% for new in day.list %}
+                <li><a href="/news/{{ new.link }}/">{{ new.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+     <a target="_blank" target="_blank" href="/news/create/">Create News</a>
+</body>
+</html>
